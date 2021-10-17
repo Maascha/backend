@@ -31,7 +31,7 @@
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [5000, 5432],
+	"forwardPorts": [3000, 5000, 5432],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "sudo chown node node_modules built && npm ci", //change owner such that the user node can use the mounted volumes

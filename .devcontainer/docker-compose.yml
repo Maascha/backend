@@ -34,7 +34,18 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_DB: coronaschool-dev
+  
+  grafana:
+    build:
+      context: .
+      dockerfile: Dockerfile-Grafana
+    container_name: grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+    network_mode: service:db
 
 volumes:
   corona-school-backend-node_modules:
   corona-school-backend-built:
+  grafana-data:
+    external: true
