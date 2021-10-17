@@ -42,6 +42,7 @@ services:
     container_name: grafana
     volumes:
       - grafana-data:/var/lib/grafana
+      - ./grafana-config/dashboards:/etc/grafana/dashboards
     network_mode: service:db
 
 volumes:
