@@ -16,6 +16,7 @@ import * as registrationController from "./controllers/registrationController";
 import * as mentoringController from "./controllers/mentoringController";
 import * as expertController from "./controllers/expertController";
 import * as interestConfirmationController from "./controllers/interestConfirmationController";
+import * as dashboardController from "./controllers/dashboardController";
 import { configure, connectLogger, getLogger } from "log4js";
 import { createConnection, getConnection } from "typeorm";
 import { authCheckFactory, screenerAuthCheck } from "./middleware/auth";
@@ -82,6 +83,7 @@ createConnection().then(setupPDFGenerationEnvironment)
         configureApolloServer();
         configurePupilInterestConfirmationAPI();
         configureNotificationAPI();
+        configureDashboardAPI();
         const server = await deployServer();
         configureGracefulShutdown(server);
 
@@ -351,6 +353,17 @@ createConnection().then(setupPDFGenerationEnvironment)
             router.post("/check-reminders", notificationController.checkReminders);
 
             app.use("/api/notification", authCheckFactory(), router);
+        }
+
+        function configureDashboardAPI() {
+            const dashboardRouter = express.Router();
+            dashboardRouter.use(authCheckFactory(true));
+
+            dashboardRouter.get("/", dashboardController.establishGrafanaConnection);
+            dashboardRouter.post("/query", dashboardController.registeredStudents);
+
+
+            app.use("/api/dashboard", dashboardRouter);
         }
 
         function configureApolloServer() {
