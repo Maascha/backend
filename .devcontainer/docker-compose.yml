@@ -43,6 +43,8 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       - ./grafana-config/dashboards:/etc/grafana/dashboards
+    environment:
+      - GF_INSTALL_PLUGINS= grafana-simple-json-datasource
     network_mode: service:db
 
 volumes:
