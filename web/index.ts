@@ -359,7 +359,6 @@ createConnection().then(setupPDFGenerationEnvironment)
             const dashboardRouter = express.Router();
             dashboardRouter.use(authCheckFactory(true));
 
-            dashboardRouter.get("/", dashboardController.establishGrafanaConnection);
             dashboardRouter.get("/pupil/count", dashboardController.registeredStudents);
 
 
