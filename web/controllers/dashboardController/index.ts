@@ -12,25 +12,20 @@ export async function establishGrafanaConnection(req: Express.Request, res: Expr
 }
 
 export async function registeredStudents(req: Express.Request, res: Express.Response) {
-    console.log(req);
+    let from = new Date(Number(req.query.from));
+    let to = new Date(Number(req.query.to));
     try {
         const pupilsCount = await prisma.pupil.count({
             where: {
                 createdAt: {
-                    gt: new Date("2021-10-25T00:00:00")
+                    gt: from,
+                    lt: to
                 }
             }
         }
         );
-        return res.json([
-            {
-                "columns": [
-                    {"text": "count", "type": "number"}
-                ],
-                "rows": [ [pupilsCount] ],
-                "type": "table"
-            }
-        ]).end;
+        res.json([{"count": pupilsCount}]).status(200).end;
+        return res.end;
     } catch (error) {
         return res.status(500).send(`The following error occured:\n\n${error}`);
     }

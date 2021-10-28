@@ -1,0 +1,14 @@
+# config file version
+apiVersion: 1
+
+# list of datasources to insert/update
+datasources:
+  # <string, required> name of the datasource. Required
+- name: infinity
+  type: yesoreyeram-infinity-datasource
+  access: proxy
+  isDefault: true
+  version: 1
+  jsonData:
+    tlsSkipVerify: false
+  readOnly: true

@@ -44,7 +44,7 @@ services:
       - grafana-data:/var/lib/grafana
       - ./grafana-config/dashboards:/etc/grafana/dashboards
     environment:
-      - GF_INSTALL_PLUGINS= grafana-simple-json-datasource
+      - GF_INSTALL_PLUGINS= grafana-simple-json-datasource,yesoreyeram-infinity-datasource
     network_mode: service:db
 
 volumes:

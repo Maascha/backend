@@ -360,7 +360,7 @@ createConnection().then(setupPDFGenerationEnvironment)
             dashboardRouter.use(authCheckFactory(true));
 
             dashboardRouter.get("/", dashboardController.establishGrafanaConnection);
-            dashboardRouter.post("/query", dashboardController.registeredStudents);
+            dashboardRouter.get("/pupil/count", dashboardController.registeredStudents);
 
 
             app.use("/api/dashboard", dashboardRouter);
