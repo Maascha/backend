@@ -248,6 +248,7 @@ export async function setupDevDB() {
     s1.isProjectCoach = true;
     s1.supportsInDaZ = true;
     s1.languages = [Language.ku, Language.en];
+    s1.university= "DHBW";
     students.push(s1);
 
     const s2 = new Student();
@@ -264,6 +265,7 @@ export async function setupDevDB() {
     s2.wix_creation_date = new Date(new Date().getTime() - 22000000);
     s2.subjects = JSON.stringify(["Deutsch3:5", "Mathematik4:6"]);
     s2.openMatchRequestCount = 2;
+    s2.university= "DHBW";
     students.push(s2);
 
     const s3 = new Student();
@@ -283,6 +285,7 @@ export async function setupDevDB() {
         { name: "Spanisch", minGrade: 6, maxGrade: 10 },
     ]);
     s3.openMatchRequestCount = 1;
+    s3.university= "DHBW";
     students.push(s3);
 
     const s4 = new Student();
@@ -302,6 +305,7 @@ export async function setupDevDB() {
         { name: "Spanisch", minGrade: 6, maxGrade: 10 },
     ]);
     s4.openMatchRequestCount = 1;
+    s4.university= "WWU";
     students.push(s4);
 
     const s5 = new Student();
@@ -323,6 +327,7 @@ export async function setupDevDB() {
     s5.openMatchRequestCount = 1;
     s5.module = TeacherModule.INTERNSHIP;
     s5.moduleHours = 10;
+    s5.university= "WWU";
     students.push(s5);
 
     const s6 = new Student();
@@ -347,6 +352,7 @@ export async function setupDevDB() {
     s6.wix_creation_date = new Date(new Date().getTime() - 11000000);
     s6.subjects = JSON.stringify([]);
     s6.openMatchRequestCount = 1;
+    s6.university= "Mannheim";
     students.push(s6);
 
     const s7 = new Student();
@@ -368,6 +374,7 @@ export async function setupDevDB() {
         { name: "Spanisch", minGrade: 6, maxGrade: 10 },
     ]);
     s7.openMatchRequestCount = 1;
+    s7.university= "Mannheim";
     students.push(s7);
 
     for (let i = 0; i < students.length; i++) {
