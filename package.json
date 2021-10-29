@@ -9,6 +9,7 @@
   "scripts": {
     "start": "echo Please be more specific what to start for now...",
     "build": "tsc",
+    "build:dev": "tsc --incremental",
     "build:clean": "(rm -rf ./built/ 2> /dev/null || find ./built/ -mindepth 1 -delete) && npm run build",
     "heroku-postbuild": "npm run build && ./setup.sh",
     "test": "TS_NODE_FILES=true mocha -r ts-node/register './tests/**/*.test.ts' --exit",
