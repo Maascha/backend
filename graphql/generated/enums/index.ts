@@ -1,4 +1,5 @@
 export { Bbb_meetingScalarFieldEnum } from "./Bbb_meetingScalarFieldEnum";
+export { Certificate_of_conductScalarFieldEnum } from "./Certificate_of_conductScalarFieldEnum";
 export { Concrete_notificationScalarFieldEnum } from "./Concrete_notificationScalarFieldEnum";
 export { CourseScalarFieldEnum } from "./CourseScalarFieldEnum";
 export { Course_attendance_logScalarFieldEnum } from "./Course_attendance_logScalarFieldEnum";
@@ -15,6 +16,7 @@ export { Jufo_verification_transmissionScalarFieldEnum } from "./Jufo_verificati
 export { LectureScalarFieldEnum } from "./LectureScalarFieldEnum";
 export { LogScalarFieldEnum } from "./LogScalarFieldEnum";
 export { MatchScalarFieldEnum } from "./MatchScalarFieldEnum";
+export { Match_pool_runScalarFieldEnum } from "./Match_pool_runScalarFieldEnum";
 export { MentorScalarFieldEnum } from "./MentorScalarFieldEnum";
 export { NotificationScalarFieldEnum } from "./NotificationScalarFieldEnum";
 export { Participation_certificateScalarFieldEnum } from "./Participation_certificateScalarFieldEnum";
@@ -24,6 +26,7 @@ export { Project_matchScalarFieldEnum } from "./Project_matchScalarFieldEnum";
 export { PupilScalarFieldEnum } from "./PupilScalarFieldEnum";
 export { Pupil_tutoring_interest_confirmation_requestScalarFieldEnum } from "./Pupil_tutoring_interest_confirmation_requestScalarFieldEnum";
 export { QueryMode } from "./QueryMode";
+export { Remission_requestScalarFieldEnum } from "./Remission_requestScalarFieldEnum";
 export { SchoolScalarFieldEnum } from "./SchoolScalarFieldEnum";
 export { ScreenerScalarFieldEnum } from "./ScreenerScalarFieldEnum";
 export { ScreeningScalarFieldEnum } from "./ScreeningScalarFieldEnum";
