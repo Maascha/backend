@@ -403,7 +403,6 @@ createConnection().then(setupPDFGenerationEnvironment)
             app.use("/api/dashboard", dashboardRouter);
         }
 
-        function configureApolloServer() {
         async function configureApolloServer() {
             await apolloServer.start();
             apolloServer.applyMiddleware({ app, path: "/apollo" });
