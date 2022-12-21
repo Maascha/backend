@@ -15,7 +15,6 @@ import { inAppChannel } from './channels/inapp';
 import { getMessage } from '../../notifications/templates';
 import { ActionID } from './actions';
 import { DEFAULT_PREFERENCES } from '../../notifications/preferences';
-import { Prisma } from '@prisma/client';
 
 const logger = getLogger('Notification');
 
@@ -269,7 +268,9 @@ async function deliverNotification(
         }
 
         const { messageType } = getMessage(concreteNotification);
-        let preferences = (await queryUser(user, { notificationPreferences: true })).notificationPreferences.toString() ?? JSON.stringify(DEFAULT_PREFERENCES);
+        let preferences = (await queryUser(user, { notificationPreferences: true })).notificationPreferences ?? DEFAULT_PREFERENCES;
+
+        preferences = JSON.stringify(preferences);
 
         type Category = { [channel: string]: boolean };
         let category: Category;
