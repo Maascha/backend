@@ -2,7 +2,7 @@ import { mailjetChannel } from './channels/mailjet';
 import { NotificationID, NotificationContext, Context, Notification, ConcreteNotification, ConcreteNotificationState, Person } from './types';
 import { prisma } from '../prisma';
 import { getNotification, getNotifications } from './notification';
-import { getUserIdTypeORM, getUserTypeORM, getFullName, getUserForTypeORM, User, getStudentOrPupil } from '../user';
+import { getUserIdTypeORM, getUserTypeORM, getFullName, getUserForTypeORM, User, getStudentOrPupil, queryUser } from '../user';
 import { getLogger } from 'log4js';
 import { Student } from '../entity/Student';
 import { v4 as uuid } from 'uuid';
@@ -14,6 +14,8 @@ import { USER_APP_DOMAIN } from '../util/environment';
 import { inAppChannel } from './channels/inapp';
 import { getMessage } from '../../notifications/templates';
 import { ActionID } from './actions';
+import { DEFAULT_PREFERENCES } from '../../notifications/preferences';
+import { Prisma } from '@prisma/client';
 
 const logger = getLogger('Notification');
 
@@ -262,26 +264,31 @@ async function deliverNotification(
 
     try {
         const user = getUserForTypeORM(legacyUser);
-
         if (notification.hookID) {
             await triggerHook(notification.hookID, user);
         }
 
         const { messageType } = getMessage(concreteNotification);
+        let preferences = (await queryUser(user, { notificationPreferences: true })).notificationPreferences.toString() ?? JSON.stringify(DEFAULT_PREFERENCES);
 
-        // default channel is inapp
+        type Category = { [channel: string]: boolean };
+        let category: Category;
+
+        if (typeof preferences === 'string') {
+            const [parsedPreferences] = JSON.parse(preferences);
+            preferences = parsedPreferences;
+        }
+
+        category = preferences[messageType];
+        logger.info('typeof preferences', typeof preferences, 'preferences from user', preferences);
+
         const activeChannelForNotificationType: string[] = ['inapp'];
 
-        // TODO: Check if user silenced this notification
-        const { notificationPreferences } = await getStudentOrPupil(user);
-
-        if (notificationPreferences && typeof notificationPreferences === 'string') {
-            const enabledChannels: { [channel: string]: boolean } = JSON.parse(notificationPreferences)[messageType];
-
-            for (const channel in enabledChannels) {
-                if (enabledChannels[channel] === true) {
-                    activeChannelForNotificationType.push(channel);
-                }
+        for (let channel in category) {
+            logger.info('typeof category', typeof category, 'category:', category[channel]);
+            if (category[channel] === true) {
+                activeChannelForNotificationType.push(channel);
+                logger.info(`added channel ${channel}`);
             }
         }
 
@@ -289,8 +296,11 @@ async function deliverNotification(
             .filter((it) => it.canSend(notification, user))
             .filter((c) => {
                 const compareValue = c.type === 'mailjet' ? 'email' : c.type;
+                logger.info(`is ${compareValue} active? -> ${activeChannelForNotificationType.includes(compareValue)}`);
                 return activeChannelForNotificationType.includes(compareValue);
             });
+
+        process.exit();
 
         // Channels can be empty if preference is in-app, but there is no WebSocket connection.
         // In this case message will be not pushed, but can be pulled later
