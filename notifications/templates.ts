@@ -44,6 +44,11 @@ export const getMessage = (concreteNotification: ConcreteNotification, user?: Us
             body: `bla bla ${firstname} bla bla ${lastname}`,
             messageType: MessageType.SURVEY,
         },
+        29: {
+            headline: `User Login Notification ${concreteNotification.id}`,
+            body: `Hello ${firstname} ${lastname} template ${concreteNotification.notificationID} :)`,
+            messageType: MessageType.MATCH,
+        },
     };
 
     if (templates.hasOwnProperty(notificationID)) {
