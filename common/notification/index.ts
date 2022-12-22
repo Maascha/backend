@@ -301,8 +301,6 @@ async function deliverNotification(
                 return activeChannelForNotificationType.includes(compareValue);
             });
 
-        process.exit();
-
         // Channels can be empty if preference is in-app, but there is no WebSocket connection.
         // In this case message will be not pushed, but can be pulled later
         if (channelsToSendTo && channelsToSendTo.length) {
